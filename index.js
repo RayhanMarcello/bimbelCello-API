@@ -1,13 +1,15 @@
+import { configDotenv } from "dotenv";
 import express from "express";
+import routesLogin from "./src/routes/login.js";
+
+configDotenv();
 const app = express();
 app.use(express.json());
 
-const port = 4000;
+const port = process.env.PORT;
 
-app.use("/", (req, res) => {
-  res.json("p");
-});
+app.use("/api/login", routesLogin);
 
 app.listen(port, () => {
-  console.log("running");
+  console.log("server runing at", port);
 });
