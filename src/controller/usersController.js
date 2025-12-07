@@ -1,13 +1,29 @@
 import usersModel from "../models/usersModel.js";
 
-const login = (req, res) => {
-  const { username, password } = req.body;
-  res.json({
-    data: {
-      usename: username,
-      password: password,
-    },
-  });
+const login = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const result = await usersModel.login(username, password);
+    const rows = Array.isArray(result[0]) ? result[0] : result;
+
+    if (!rows || rows.length === 0) {
+      // tidak ada user yang cocok
+      return res.status(401).json({
+        message: "username or password wrong!!!",
+      });
+    }
+
+    // kalau mau kirim data user:
+    const user = rows[0];
+    return res.json({
+      message: "sucsess login",
+      data: user,
+    });
+  } catch (error) {
+    return res.json({
+      message: "username or password wrong!!!",
+    });
+  }
 };
 
 const register = async (req, res) => {
