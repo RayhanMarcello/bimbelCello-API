@@ -6,4 +6,10 @@ const register = async (username, password, role) => {
   return result;
 };
 
-export default { register };
+const login = async (username, password) => {
+  const sql = "call sp_login_user(?,?)";
+  const [result] = await db.execute(sql, [username, password]);
+  return result;
+};
+
+export default { register, login };
