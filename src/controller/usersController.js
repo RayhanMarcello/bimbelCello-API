@@ -7,13 +7,11 @@ const login = async (req, res) => {
     const rows = Array.isArray(result[0]) ? result[0] : result;
 
     if (!rows || rows.length === 0) {
-      // tidak ada user yang cocok
       return res.status(401).json({
         message: "username or password wrong!!!",
       });
     }
 
-    // kalau mau kirim data user:
     const user = rows[0];
     return res.json({
       message: "sucsess login",
@@ -45,4 +43,14 @@ const register = async (req, res) => {
   }
 };
 
-export default { login, register };
+const getUserById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const result = await usersModel.getUserById(id);
+    res.json({
+      data: result,
+    });
+  } catch (error) {}
+};
+
+export default { login, register, getUserById };
