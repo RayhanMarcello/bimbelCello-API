@@ -3,6 +3,7 @@ import materiController from "../controller/materiController.js";
 
 const router = express.Router();
 
-router.post("/", materiController);
+router.post("/", materiController.uploadMateri);
+router.get("/", materiController.getAllMateri);
 
 export default router;
