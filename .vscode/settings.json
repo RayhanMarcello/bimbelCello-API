@@ -2,7 +2,7 @@
   "sqltools.connections": [
     {
       "mysqlOptions": {
-        "authProtocol": "xprotocol",
+        "authProtocol": "default",
         "enableSsl": "Disabled"
       },
       "ssh": "Disabled",
@@ -11,10 +11,9 @@
       "port": 3306,
       "driver": "MySQL",
       "name": "mysql-local",
-      "database": "UAS-MBD",
-      "username": "rayhan",
-      "password": "root",
-      "connectionTimeout": 30
+      "database": "MBD_UAS",
+      "username": "app",
+      "password": "root"
     }
   ]
 }
