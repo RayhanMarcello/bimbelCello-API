@@ -1,10 +1,21 @@
 import express from "express";
 import materiController from "../controller/materiController.js";
-
+import auth from "../middleware/auth.js";
 const router = express.Router();
 
-router.post("/", materiController.uploadMateri);
-router.get("/", materiController.getAllMateri);
-router.delete("/:id", materiController.deleteMateri);
+router.post(
+  "/",
+  [auth.isAuthenticated, auth.isPengajar],
+  materiController.uploadMateri
+);
+
+router.get("/", auth.isAuthenticated, materiController.getAllMateri);
+router.delete("/:id", [auth.isAuthenticated], materiController.deleteMateri);
+
+router.delete(
+  "/:id",
+  [auth.isAuthenticated, auth.isPengajar],
+  materiController.deleteMateri
+);
 
 export default router;
