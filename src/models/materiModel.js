@@ -12,10 +12,16 @@ const getAllMateri = async () => {
   return result;
 };
 
-const deleteMateri = async (id) => {
-  const sql = "call sp_delete_materi(?)";
+const deleteMateri = async (id, owner_id) => {
+  const sql = "call sp_delete_materi(?,?)";
+  const [result] = await db.execute(sql, [id, owner_id]);
+  return result;
+};
+
+const getMateriById = async (id) => {
+  const sql = "call sp_get_materi_by_id(?)";
   const [result] = await db.execute(sql, [id]);
   return result;
 };
 
-export default { uploadMateri, getAllMateri, deleteMateri };
+export default { uploadMateri, getAllMateri, deleteMateri, getMateriById };
