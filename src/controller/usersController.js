@@ -1,25 +1,43 @@
+import { configDotenv } from "dotenv";
 import usersModel from "../models/usersModel.js";
+import jwt from "jsonwebtoken";
+configDotenv;
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const login = async (req, res) => {
+  const { username, password, role } = req.body;
+  if (!username || !password || !role) {
+    return res
+      .status(400)
+      .json({ message: "Username, password, and role are required" });
+  }
+  if (!["siswa", "pengajar"].includes(role)) {
+    return res
+      .status(400)
+      .json({ message: "Role bukan 'siswa' atau 'pengajar'" });
+  }
   try {
-    const { username, password } = req.body;
-    const result = await usersModel.login(username, password);
-    const rows = Array.isArray(result[0]) ? result[0] : result;
+    const result = await usersModel.login(username, password, role);
+    const resultLogin = result[0][0];
 
-    if (!rows || rows.length === 0) {
-      return res.status(401).json({
-        message: "username or password wrong!!!",
-      });
-    }
+    const payload = {
+      user_id: resultLogin.user_id,
+      username: resultLogin.username,
+      role: resultLogin.role,
+    };
 
-    const user = rows[0];
+    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1d" });
+    console.log(resultLogin);
     return res.json({
       message: "sucsess login",
-      data: user,
+      token: token,
+      datas: payload,
     });
   } catch (error) {
     return res.json({
-      message: "username or password wrong!!!",
+      internalMessage: error.message,
+      message: "bukan role anda",
     });
   }
 };
