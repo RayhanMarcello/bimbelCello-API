@@ -1,6 +1,7 @@
 import express from "express";
 import materiController from "../controller/materiController.js";
 import auth from "../middleware/auth.js";
+import videoController from "../controller/videoController.js";
 const router = express.Router();
 
 router.post(
@@ -18,5 +19,11 @@ router.delete(
 );
 
 router.get("/:id", [auth.isAuthenticated], materiController.getMateriById);
+
+router.post(
+  "/video",
+  [auth.isAuthenticated, auth.isPengajar],
+  videoController.addVideo
+);
 
 export default router;
