@@ -12,9 +12,9 @@ const login = async (username, password, role) => {
   return result;
 };
 
-const getUserById = async (id) => {
-  const sql = "call sp_get_user_by_id(?)";
-  const [result] = await db.execute(sql, [id]);
+const getUserById = async (id, owner_id) => {
+  const sql = "call sp_get_user_by_id(?,?)";
+  const [result] = await db.execute(sql, [id, owner_id]);
   return result;
 };
 
