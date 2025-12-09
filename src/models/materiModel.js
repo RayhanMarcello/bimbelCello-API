@@ -12,4 +12,10 @@ const getAllMateri = async () => {
   return result;
 };
 
-export default { uploadMateri, getAllMateri };
+const deleteMateri = async (id) => {
+  const sql = "call sp_delete_materi(?)";
+  const [result] = await db.execute(sql, [id]);
+  return result;
+};
+
+export default { uploadMateri, getAllMateri, deleteMateri };
