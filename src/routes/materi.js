@@ -10,12 +10,13 @@ router.post(
 );
 
 router.get("/", auth.isAuthenticated, materiController.getAllMateri);
-router.delete("/:id", [auth.isAuthenticated], materiController.deleteMateri);
 
 router.delete(
   "/:id",
   [auth.isAuthenticated, auth.isPengajar],
   materiController.deleteMateri
 );
+
+router.get("/:id", [auth.isAuthenticated], materiController.getMateriById);
 
 export default router;
