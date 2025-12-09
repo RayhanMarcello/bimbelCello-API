@@ -34,7 +34,7 @@ const getAllMateri = async (req, res) => {
 
 const deleteMateri = async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = req.params;
     const [data] = await materiModel.deleteMateri(id);
     req.json({
       message: "sucsess delete data",
