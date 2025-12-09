@@ -32,4 +32,19 @@ const getAllMateri = async (req, res) => {
   }
 };
 
-export default { uploadMateri, getAllMateri };
+const deleteMateri = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const [data] = await materiModel.deleteMateri(id);
+    req.json({
+      message: "sucsess delete data",
+      data: data,
+    });
+  } catch (error) {
+    res.json({
+      message: error.message,
+    });
+  }
+};
+
+export default { uploadMateri, getAllMateri, deleteMateri };
