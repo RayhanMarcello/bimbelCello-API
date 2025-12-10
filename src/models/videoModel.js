@@ -17,4 +17,16 @@ const deleteVideo = async (id) => {
   return result;
 };
 
-export default { addVideo, deleteVideo };
+const getVideoByMateri = async (idMateri) => {
+  const sql = "call sp_get_all_video_by_materi(?)";
+  const [result] = await db.execute(sql, [idMateri]);
+  return result[0];
+};
+
+const getVideoById = async (idVideo) => {
+  const sql = "call sp_get_video_by_id(?)";
+  const [result] = await db.execute(sql, [idVideo]);
+  return result[0];
+};
+
+export default { addVideo, deleteVideo, getVideoByMateri, getVideoById };
