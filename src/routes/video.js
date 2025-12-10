@@ -5,7 +5,7 @@ import videoController from "../controller/videoController.js";
 const router = express.Router();
 
 router.post(
-  "/video",
+  "/",
   [auth.isAuthenticated, auth.isPengajar],
   videoController.addVideo
 );
@@ -16,4 +16,10 @@ router.delete(
   videoController.deleteVideo
 );
 
+router.get(
+  "/materi/:idMateri",
+  [auth.isAuthenticated],
+  videoController.getVideoByMateriId
+);
+router.get("/:idVideo", [auth.isAuthenticated], videoController.getVideoById);
 export default router;
