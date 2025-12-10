@@ -44,4 +44,34 @@ const deleteVideo = async (req, res) => {
   }
 };
 
-export default { addVideo, deleteVideo };
+const getVideoByMateriId = async (req, res) => {
+  const idMateri = req.params.idMateri;
+  const data = await videoModel.getVideoByMateri(idMateri);
+  try {
+    res.json({
+      message: "sucsess get video by materi",
+      data: data,
+    });
+  } catch (error) {
+    res.json({
+      message: error.message,
+    });
+  }
+};
+
+const getVideoById = async (req, res) => {
+  const idVideo = req.params.idVideo;
+  const data = await videoModel.getVideoByMateri(idVideo);
+  try {
+    res.json({
+      message: "sucsess get video ",
+      data: data,
+    });
+  } catch (error) {
+    res.json({
+      message: error.message,
+    });
+  }
+};
+
+export default { addVideo, deleteVideo, getVideoByMateriId, getVideoById };
