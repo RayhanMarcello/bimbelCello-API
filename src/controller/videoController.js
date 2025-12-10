@@ -22,4 +22,26 @@ const addVideo = async (req, res) => {
     res.json({ message: error.message });
   }
 };
-export default { addVideo };
+
+const deleteVideo = async (req, res) => {
+  const id = req.params.id;
+
+  const data = await videoModel.deleteVideo(id);
+  try {
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        message: "video tidak ditemukan atau sudah terhapus",
+      });
+    }
+    res.json({
+      message: "succsess delete video",
+      deleted: data,
+    });
+  } catch (error) {
+    res.json({
+      message: "video tidak ditemukan",
+    });
+  }
+};
+
+export default { addVideo, deleteVideo };
