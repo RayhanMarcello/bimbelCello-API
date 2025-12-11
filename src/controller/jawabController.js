@@ -1,8 +1,10 @@
 import jawabModel from "../models/jawabModel.js";
+import nilaiModel from "../models/nilaiModel.js";
 
 const postJawaban = async (req, res) => {
-  const { idSoal, idSiswa, jawaban_dipilih } = req.body;
+  const { idSoal, idSiswa, jawaban_dipilih, idLatihan } = req.body;
   await jawabModel.postJawab(idSoal, idSiswa, jawaban_dipilih);
+  await nilaiModel.nilaiResult(idLatihan, idSiswa);
   try {
     res.json({
       messages: "jawaban berhasil dikirim",
