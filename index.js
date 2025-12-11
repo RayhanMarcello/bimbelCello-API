@@ -7,6 +7,7 @@ import routesMateri from "./src/routes/materi.js";
 import routesVideo from "./src/routes/video.js";
 import routerLatihan from "./src/routes/latihan.js";
 import routerSoal from "./src/routes/soal.js";
+import routerJawab from "./src/routes/jawab.js";
 
 configDotenv();
 const app = express();
@@ -21,6 +22,7 @@ app.use("/api/materi", routesMateri);
 app.use("/api/video", routesVideo);
 app.use("/api/latihan", routerLatihan);
 app.use("/api/soal", routerSoal);
+app.use("/api/jawab", routerJawab);
 
 app.listen(port, () => {
   console.log("server runing at", port);
